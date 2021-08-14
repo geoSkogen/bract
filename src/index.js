@@ -33,6 +33,8 @@ class BractField extends React.Component {
            }}
           />
 
+          <span className='err-msg'>{this.props.err}</span>
+
         </div>
       </div>
     )
@@ -59,13 +61,14 @@ class BractForm extends React.Component {
     }
   }
 
-  renderField(name, label, type, int) {
+  renderField(name, label, type, int, err) {
     return (
       <BractField
        name = {name}
        label = {label}
        type = {type}
        index = {int}
+       err = {err}
        validField = { (val) => { this.validField(name,val,int) }}
       />
     )
@@ -113,12 +116,11 @@ class BractForm extends React.Component {
   render() {
     return(
       <form id='bract-form'>
-      {this.renderField(this.fields[0].name,this.fields[0].label,this.fields[0].type,0)}
-      {this.renderField(this.fields[1].name,this.fields[1].label,this.fields[1].type,1)}
-      {this.renderField(this.fields[2].name,this.fields[2].label,this.fields[2].type,2)}
-      {this.renderField(this.fields[3].name,this.fields[3].label,this.fields[3].type,3)}
-      {this.renderField(this.fields[4].name,this.fields[4].label,this.fields[4].type,4)}
-
+      {this.renderField(this.fields[0].name,this.fields[0].label,this.fields[0].type,0,this.state.field_errs[0])}
+      {this.renderField(this.fields[1].name,this.fields[1].label,this.fields[1].type,1,this.state.field_errs[1])}
+      {this.renderField(this.fields[2].name,this.fields[2].label,this.fields[2].type,2,this.state.field_errs[2])}
+      {this.renderField(this.fields[3].name,this.fields[3].label,this.fields[3].type,3,this.state.field_errs[3])}
+      {this.renderField(this.fields[4].name,this.fields[4].label,this.fields[4].type,4,this.state.field_errs[4])}
       </form>
     )
   }
