@@ -1,4 +1,13 @@
-form {
+header#bract-header {
+  font-family: Tahoma, sans-serif;
+}
+
+header#bract-header > h1,
+header#bract-header > h2 {
+  text-align: center;
+}
+
+form#bract-form {
   font-size: 30px;
   font-family: Arial;
 }
@@ -12,8 +21,48 @@ form {
   justify-content: center;
 }
 
-.bractf-input {
-  padding: 1em;
+.flex-end {
+  justify-content: flex-end;
+}
+
+.bract-field {
+  padding: 0.5em;
   border-radius: 5px;
-  margin: 1.5em;
+  margin: 0.5em;
+  font-size: 24px;
+}
+
+.err-msg {
+  width: 300px;
+  font-size: 12px;
+  color: red;
+  padding: 0.75em;
+}
+
+.plain-button {
+  cursor: pointer;
+  padding: 0.33em 0.66em;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  opacity: 0.33;
+  margin: 0.5em;
+}
+
+article#form-display-box {
+  padding: 1em;
+  font-size: 30px;
+  max-width: 40%;
+  min-width: 40%;
+  text-align: center;
+}
+
+#clipboard-icon {
+  font-size: 30px;
+  opacity: 0.33;
+  cursor: pointer;
+}
+
+.invis {
+  opacity: 0;
 }
