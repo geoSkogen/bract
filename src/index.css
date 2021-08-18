@@ -10,6 +10,8 @@ header#bract-header > h2 {
 form#bract-form {
   font-size: 30px;
   font-family: Arial;
+  padding: 1em;
+  margin: 1em;
 }
 
 .flex-row {
@@ -32,6 +34,10 @@ form#bract-form {
   font-size: 24px;
 }
 
+.bract-textarea {
+  font-family: Arial, sans-serif;
+}
+
 .err-msg {
   width: 300px;
   font-size: 12px;
@@ -51,18 +57,36 @@ form#bract-form {
 
 article#form-display-box {
   padding: 1em;
+  margin: 1em;
   font-size: 30px;
-  max-width: 40%;
-  min-width: 40%;
   text-align: center;
+  color: cornflowerblue;
+  word-wrap: normal;
+  font-family: monospace, sans-serif;
+
 }
 
 #clipboard-icon {
   font-size: 30px;
   opacity: 0.33;
   cursor: pointer;
+  color: black;
 }
 
 .invis {
+  /*
   opacity: 0;
+  */
+  margin: 1em;
+}
+
+#modal-toolbar {
+  margin: 1em;
+}
+
+#product-review-snippet {
+  font-size: 20px;
+  font-family: Tahoma, Arial, sans-serif;
+  padding: 1em;
+  margin: 1em;
 }

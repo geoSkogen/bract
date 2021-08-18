@@ -8,11 +8,13 @@ class BractForm extends React.Component {
     super(props)
 
     this.fields = [
-      {name:'f_name',label:'First Name',type:'text'},
-      {name:'l_name',label:'Last Name',type:'text'},
-      {name:'color',label:'What is your favorite color?',type:'text'},
-      {name:'quest',label:'What is your quest?',type:'text'},
-      {name:'sum',label:'What are two, plus two?',type:'text'}
+      {name:'biz_name',label:'Business Name',type:'text'},
+      {name:'feat_img_src',label:'Logo URL',type:'text'},
+      {name:'product_name',label:'Product Name',type:'text'},
+      {name:'product_brand',label:'Product Brand',type:'text'},
+      {name:'product_agg_rating',label:'Product Average Rating',type:'text'},
+      {name:'product_total_ratings',label:'Total Ratings',type:'text'},
+      {name:'product_description',label:'Product Description',type:'textarea'}
     ]
 
     this.state = {
@@ -52,14 +54,17 @@ class BractForm extends React.Component {
     let code_patt = new RegExp(/[\{\}\=\[\]\(\)]+/)
 
     switch(field_name) {
-      case 'f_name' :
-      case 'l_name' :
+      case 'none' :
         err = name_patt.test(field_value) && !name_patt.test(code_patt) ?
           '' : 'name contains invalid characters'
         break
-      case 'color' :
-      case 'quest' :
-      case 'sum' :
+      case 'biz_name' :
+      case 'feat_img_src' :
+      case 'product_name' :
+      case 'product_brand' :
+      case 'product_agg_rating' :
+      case 'product_total_ratings' :
+      case 'product_description' :
         err = code_patt.test(field_value) ? 'input contains prohibited characters' : ''
         break
       default :
@@ -120,6 +125,9 @@ class BractForm extends React.Component {
     {this.renderField(this.fields[2].name,this.fields[2].label,this.fields[2].type,2,this.state.field_errs[2])}
     {this.renderField(this.fields[3].name,this.fields[3].label,this.fields[3].type,3,this.state.field_errs[3])}
     {this.renderField(this.fields[4].name,this.fields[4].label,this.fields[4].type,4,this.state.field_errs[4])}
+    {this.renderField(this.fields[5].name,this.fields[5].label,this.fields[5].type,5,this.state.field_errs[5])}
+    {this.renderField(this.fields[6].name,this.fields[6].label,this.fields[6].type,6,this.state.field_errs[6])}
+          
     {this.renderSubmit()}
         </div>
       </form>

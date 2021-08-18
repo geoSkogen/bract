@@ -9,7 +9,9 @@ class BractDisplay extends React.Component {
 
   }
 
-  renderPlaceholder(json) {
+  renderPlaceholder(json,clip_id) {
+    const html_wrapper = document.querySelector('#' + clip_id)
+
     return(
       <ClipboardPlaceholder
        value={json}
@@ -18,11 +20,11 @@ class BractDisplay extends React.Component {
   }
 
   render() {
-    this.hidden_input = this.renderPlaceholder(this.props.json)
+    this.hidden_input = this.renderPlaceholder(this.props.json,this.props.clip_id)
     return(
       <article id="form-display-box">
 
-        <div className="flex-row flex-end">
+        <div id="modal-toolbar" className="flex-row flex-end">
           <i
           id="clipboard-icon"
           className="fa fa-clipboard"
@@ -38,8 +40,11 @@ class BractDisplay extends React.Component {
           ></i>
         </div>
 
-        {this.props.json}
-        {this.hidden_input}
+        <div className="flex-row flex-center">
+          {this.hidden_input}
+        </div>
+
+
 
       </article>
     )

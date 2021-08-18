@@ -8,15 +8,17 @@ class ClipboardPlaceholder extends React.Component {
 
   render() {
     return(
-      <input
-       type='text'
+      <textarea
        id='clipboard-placeholder'
-       className='invis'
+       className='invis bract-input bract-placeholder'
+       rows='24'
+       cols='42'
        value={ this.props.value }
        onChange = { (event) => {
          console.log(event.target.id)
        }}
-       />
+       >
+       </textarea>
     )
   }
 

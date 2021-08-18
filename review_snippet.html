@@ -1,0 +1,60 @@
+'product'=> "itemscope itemtype='https://schema.org/Product'",
+        'agg_rating'=> "itemprop='aggregateRating' itemscope itemtype='https://schema.org/AggregateRating'",
+        'review'=> "itemprop='review' itemscope itemtype='https://schema.org/Review'",
+        'rating'=>"itemprop='reviewRating' itemscope itemtype='https://schema.org/Rating'"
+        <!-- cr_product_block -->
+          <div style='text-align:center;' <?php echo $this->meta_atts['product']; ?> >
+            <img itemprop='image' class='cr-product-snippet-img' id='cr-product-snippet-feat-img'
+              src='<?php echo $scheme->feat_img_src; ?>' alt='<?php echo $scheme->feat_img_alt; ?>'
+              style='width:200px; display:block; margin:0 auto; margin-bottom:20px;'/>
+            <h3 class='cr-product-snippet-name'>
+              <span itemprop='name'><?php echo $scheme->product_name; ?></span>
+            </h3>
+            <h4 class='cr-product-snippet-brand'>
+              <span itemprop='brand'><?php echo $scheme->product_brand; ?></span>
+            </h4>
+            <div <?php echo $this->meta_atts['agg_rating']; ?> class='cr-product-snippet-agg-rating-wrapper'>
+              <span itemprop='ratingValue'><?php echo $scheme->agg_rating; ?></span>
+              out of <span itemprop='bestRating'>5</span>
+              based on <span itemprop='ratingCount'><?php echo $scheme->review_count; ?></span> verified reviews
+            </div>
+              <br/>
+            <span itemprop='description' class='cr-product-snippet-description'>
+              <?php echo $scheme->product_description; ?>
+            </span>
+        <!-- cr_product_feat_review_0 -->
+            <?php
+            $stars_src = str_replace('<%rating%>',$reviews[0]->review_rating,$stars_path);
+            $stars_alt = $reviews[0]->review_rating . ' star review by ' . $reviews[0]->review_author;
+            $stars_alt .= ' | ' . $biz_name . ' - ' . $scheme->product_name;
+            ?>
+            <div <?php echo $this->meta_atts['review']; ?> >
+              <br/>
+              <center>
+                <img class='stars' class='cr-product-snippet-img' id='cr-product-snippet-stars'
+                  alt='<?php echo $stars_alt; ?>' src='<?php echo  $stars_src; ?>'
+                  width='200' style='margin-bottom:20px;width:200px'>
+              </center>
+              <strong>
+                <span itemprop='name' class='cr-product-snippet-review-title'>
+                  <?php echo $reviews[0]->review_title; ?>
+                </span><br/>&nbsp;&mdash;&nbsp;
+                <span itemprop='author' class='cr-product-snippet-review-author'>
+                  <?php echo $reviews[0]->review_author; ?>
+                </span>,
+                <meta itemprop='datePublished' content='<?php echo $reviews[0]->review_date_mdy; ?>'>
+                <?php echo $reviews[0]->review_date_read; ?>
+              </strong>
+              <div <?php echo $this->meta_atts['rating']; ?> class='cr-product-snippet-rating-wrapper'>
+                <meta itemprop='worstRating' content = '1'>
+                <span itemprop='ratingValue'><?php echo $reviews[0]->review_rating; ?></span>/
+                <span itemprop='bestRating'>5</span> stars
+              </div>
+              <br/>
+              <span itemprop='reviewBody' class='cr-product-snippet-review-body'>
+                <?php echo $reviews[0]->review_body; ?>
+              </span>
+            </div>
+        <!-- end cr_product_feat_review_0 -->
+          </div>
+        <!-- end cr_product_block -->
