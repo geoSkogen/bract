@@ -25,11 +25,11 @@ class BractApp extends React.Component {
 
     this.state = {
       logged_in : false,
-      fields_arr : {
-        reviews : [
+
+      fields_arr : {},
+      reviews : [
           this.sample_review
         ]
-      }
     }
 
   }
@@ -43,7 +43,6 @@ class BractApp extends React.Component {
       this.sample_review
     ]
     this.setState({ fields_arr : keyval_pairs })
-    //console.log(keyval_pairs)
   }
 
   postForm() {
@@ -97,17 +96,18 @@ class BractApp extends React.Component {
     )
   }
 
-  renderReviewSnippet(obj) {
+  renderReviewSnippet(obj,arr) {
     return(
       <ReviewSnippet
        schema = { obj }
+       reviews = { arr }
        />
     )
   }
 
   render() {
 
-    console.log(this.state.fields_arr)
+//    console.log(this.state.fields_arr)
     return(
       <>
 
@@ -117,7 +117,7 @@ class BractApp extends React.Component {
 
           {this.renderForm()}
 
-          {this.renderReviewSnippet( this.state.fields_arr )}
+          {this.renderReviewSnippet( this.state.fields_arr, this.state.reviews)}
 
           {this.renderDisplay( this.state.fields_arr )}
 

@@ -11,10 +11,10 @@ class ReviewSnippet extends React.Component {
 
   preRenderConfig() {
     this.stars_path = 'assets/<%rating%>-gold-stars.png'
-    this.stars_src = this.stars_path.replace('<%rating%>',this.props.schema.reviews[0].review_rating)
+    this.stars_src = this.stars_path.replace('<%rating%>',this.props.reviews[0].review_rating)
 
-    this.stars_alt = this.props.schema.reviews[0].review_rating + ' star review by ' +
-      this.props.schema.reviews[0].review_author
+    this.stars_alt = this.props.reviews[0].review_rating + ' star review by ' +
+      this.props.reviews[0].review_author
     this.stars_alt += ' | ' + this.props.schema.biz_name + ' - ' + this.props.schema.product_name
     this.feat_img_alt = this.props.schema.product_brand + ' ' +
       this.props.schema.product_name + ' | ' + this.props.schema.biz_name
@@ -92,7 +92,7 @@ class ReviewSnippet extends React.Component {
       { this.renderProductDescription() }
 
       <Review
-        review = { this.props.schema.reviews[0] }
+        review = { this.props.reviews[0] }
         stars_src = { this.stars_src }
         stars_alt = { this.stars_alt }
       />

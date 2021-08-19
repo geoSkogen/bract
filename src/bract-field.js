@@ -5,8 +5,21 @@ class BractField extends React.Component {
     super(props)
     this.state = {
       valid : false,
+      value : '',
       err : this.props.err
     }
+
+    this.handleInputChange = this.handleInputChange.bind(this)
+  }
+
+  handleInputChange(event) {
+    this.setState({ value: event.target.value })
+
+    this.props.validField(
+      this.props.name,
+      event.target.value,
+      this.props.index
+    )
   }
 
   renderInput() {
@@ -17,23 +30,13 @@ class BractField extends React.Component {
        type={this.props.type}
        id={'input-for-' + this.props.name}
        className={'bract-field'}
-       onChange={ (event) => {
-
-         this.props.validField(
-           this.props.name,
-           event.target.value,
-           this.props.index
-         )
-       }}
-
-       onBlur={ (event) => {
-
-         this.props.validField(
-           this.props.name,
-           event.target.value,
-           this.props.index
-         )
-       }}
+       value = { this.state.value }
+       onChange={
+         this.handleInputChange
+       }
+       onBlur={
+         this.handleInputChange
+       }
       />
     )
   }
@@ -70,7 +73,7 @@ class BractField extends React.Component {
   }
 
   render() {
-    
+
     let this_field = {}
     if (this.props.type==='textarea') {
       this_field = this.renderTextArea()

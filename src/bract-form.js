@@ -34,7 +34,7 @@ class BractForm extends React.Component {
        type = {type}
        index = {int}
        err = {err}
-       key = {name } 
+       key = {name }
        validField = { (name,val,int) => { this.validField(name,val,int) }}
       />
     )
@@ -81,12 +81,14 @@ class BractForm extends React.Component {
       valid_fields : valid_fields_arr,
       field_errs : field_errs_arr,
       field_vals : field_vals_arr
-    })
-    //
-    this.props.auditForm(
-      this.state.field_vals,
-      this.fields
+    },
+      this.props.auditForm(
+        this.state.field_vals,
+        this.fields
+      )
     )
+    //
+
   }
 
   handleSubmit() {
@@ -138,7 +140,7 @@ class BractForm extends React.Component {
       <form id='bract-form' className="flex-row flex-center">
         <div className="form-interior">
 
-    { field_els  }
+    { field_els }
 
     { this.renderSubmit() }
 
