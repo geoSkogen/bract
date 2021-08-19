@@ -1,9 +1,10 @@
 import React from 'react'
 
-import ReviewSnippet from './review-snippet.js'
 import BractDisplay from './bract-display.js'
 import BractForm from './bract-form.js'
+import ReviewSnippet from './review-snippet.js'
 import Header from './header.js'
+import Footer from './footer.js'
 
 class BractApp extends React.Component {
 
@@ -62,6 +63,12 @@ class BractApp extends React.Component {
     )
   }
 
+  renderFooter() {
+    return(
+      <Footer />
+    )
+  }
+
   renderForm() {
     return(
       <BractForm
@@ -102,10 +109,10 @@ class BractApp extends React.Component {
 
     console.log(this.state.fields_arr)
     return(
-      <div>
+      <>
 
         {this.renderHeader()}
-        
+
         <div id="app-interior" className="flex-row flex-center">
 
           {this.renderForm()}
@@ -115,7 +122,10 @@ class BractApp extends React.Component {
           {this.renderDisplay( this.state.fields_arr )}
 
         </div>
-      </div>
+
+        {this.renderFooter()}
+
+      </>
     )
   }
 }

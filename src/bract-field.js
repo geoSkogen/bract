@@ -70,6 +70,7 @@ class BractField extends React.Component {
   }
 
   render() {
+    
     let this_field = {}
     if (this.props.type==='textarea') {
       this_field = this.renderTextArea()

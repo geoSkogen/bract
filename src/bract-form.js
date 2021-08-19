@@ -26,6 +26,7 @@ class BractForm extends React.Component {
   }
 
   renderField(name, label, type, int, err) {
+
     return (
       <BractField
        name = {name}
@@ -33,6 +34,7 @@ class BractForm extends React.Component {
        type = {type}
        index = {int}
        err = {err}
+       key = {name } 
        validField = { (name,val,int) => { this.validField(name,val,int) }}
       />
     )
@@ -117,18 +119,29 @@ class BractForm extends React.Component {
   }
 
   render() {
+    let i = 0
+    const field_els = []
+
+    this.fields.forEach( (field) => {
+
+      field_els.push(  this.renderField(
+        field.name,
+        field.label,
+        field.type,
+        i,
+        this.state.field_errs[i]
+      ) )
+      i++
+    })
+
     return(
       <form id='bract-form' className="flex-row flex-center">
         <div className="form-interior">
-    {this.renderField(this.fields[0].name,this.fields[0].label,this.fields[0].type,0,this.state.field_errs[0])}
-    {this.renderField(this.fields[1].name,this.fields[1].label,this.fields[1].type,1,this.state.field_errs[1])}
-    {this.renderField(this.fields[2].name,this.fields[2].label,this.fields[2].type,2,this.state.field_errs[2])}
-    {this.renderField(this.fields[3].name,this.fields[3].label,this.fields[3].type,3,this.state.field_errs[3])}
-    {this.renderField(this.fields[4].name,this.fields[4].label,this.fields[4].type,4,this.state.field_errs[4])}
-    {this.renderField(this.fields[5].name,this.fields[5].label,this.fields[5].type,5,this.state.field_errs[5])}
-    {this.renderField(this.fields[6].name,this.fields[6].label,this.fields[6].type,6,this.state.field_errs[6])}
-          
-    {this.renderSubmit()}
+
+    { field_els  }
+
+    { this.renderSubmit() }
+
         </div>
       </form>
     )

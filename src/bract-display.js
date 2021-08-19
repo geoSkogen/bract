@@ -10,8 +10,6 @@ class BractDisplay extends React.Component {
   }
 
   renderPlaceholder(json,clip_id) {
-    const html_wrapper = document.querySelector('#' + clip_id)
-
     return(
       <ClipboardPlaceholder
        value={json}

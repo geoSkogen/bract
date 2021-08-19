@@ -36,7 +36,6 @@ class ReviewSnippet extends React.Component {
     )
   }
 
-
   renderFeaturedImage() {
     return(
       <img
@@ -95,7 +94,7 @@ class ReviewSnippet extends React.Component {
       <Review
         review = { this.props.schema.reviews[0] }
         stars_src = { this.stars_src }
-        stars_alt = { this.stars_alt } 
+        stars_alt = { this.stars_alt }
       />
 
     </div>
