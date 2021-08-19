@@ -73,7 +73,6 @@ class BractApp extends React.Component {
   }
 
   renderDisplay(obj) {
-
     let display_obj = {}
     Object.keys(obj).forEach( (key) => {
 
@@ -106,7 +105,7 @@ class BractApp extends React.Component {
       <div>
 
         {this.renderHeader()}
-
+        
         <div id="app-interior" className="flex-row flex-center">
 
           {this.renderForm()}

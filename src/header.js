@@ -4,8 +4,8 @@ class Header extends React.Component {
 
   constructor(props) {
     super(props)
-    this.h1 = 'Car Ship'
-    this.h2 = 'HouseCar'
+    this.h1 = ''
+    this.h2 = ''
   }
 
   render() {
