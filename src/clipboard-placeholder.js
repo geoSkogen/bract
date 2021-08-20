@@ -13,7 +13,7 @@ class ClipboardPlaceholder extends React.Component {
        className='invis bract-input bract-placeholder'
        rows='24'
        cols='42'
-       value={ this.props.value }
+       
        onChange = { (event) => {
          console.log(event.target.id)
        }}

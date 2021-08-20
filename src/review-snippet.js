@@ -2,19 +2,54 @@ import React from 'react'
 
 import Review from './review.js'
 
+
 class ReviewSnippet extends React.Component {
 
   constructor(props) {
     super(props)
 
+    this.reviews = require('./data/reviews/schema.json')
+    this.default_review = (this.reviews.length) ?
+      this.reviews[0] : { review_author:'user', review_rating:5 }
+    this.state = {
+      selected_review : this.default_review
+    }
+    //console.log(this.reviews_raw)
+    /*
+    var xhttp = new XMLHttpRequest()
+
+    xhttp.onreadystatechange = function () {
+
+      if (this.readyState === 4 && this.status === 200 ) {
+      console.log('your file was found')
+      if (this.responseText) {
+
+        var reviews = JSON.parse(this.responseText)
+
+        if (reviews.length) {
+
+        } else {
+          console.log('no data were found')
+        }
+      } else {
+        console.log('no response from web resource')
+      }
+    } else {
+      console.log('an http error occurred - check your target URL')
+    }
+    return null
+  }
+  xhttp.open("GET",'data/reviews/schema.json',true);
+  xhttp.send();
+  */
   }
 
   preRenderConfig() {
     this.stars_path = 'assets/<%rating%>-gold-stars.png'
-    this.stars_src = this.stars_path.replace('<%rating%>',this.props.reviews[0].review_rating)
+    this.stars_src = this.stars_path.replace('<%rating%>',this.state.selected_review.review_rating)
 
-    this.stars_alt = this.props.reviews[0].review_rating + ' star review by ' +
-      this.props.reviews[0].review_author
+    this.stars_alt = this.state.selected_review.review_rating + ' star review by ' +
+      this.state.selected_review.review_author
     this.stars_alt += ' | ' + this.props.schema.biz_name + ' - ' + this.props.schema.product_name
     this.feat_img_alt = this.props.schema.product_brand + ' ' +
       this.props.schema.product_name + ' | ' + this.props.schema.biz_name
@@ -37,6 +72,7 @@ class ReviewSnippet extends React.Component {
   }
 
   renderFeaturedImage() {
+
     return(
       <img
        itemProp='image'
@@ -45,7 +81,7 @@ class ReviewSnippet extends React.Component {
        src={this.props.schema.feat_img_src}
        alt={this.feat_img_alt}
        style={
-         {width:'200px', display:'block', margin:'0 auto', marginBottom:'20px'}
+         {width:'200px', height: '200px', display:'block', margin:'0 auto', marginBottom:'20px'}
        }
       />
     )
@@ -75,6 +111,59 @@ class ReviewSnippet extends React.Component {
     )
   }
 
+  renderReviewOption(title,rating,index) {
+    return(
+      <option
+      value={ index }
+      className='review-option'
+      key={index}
+      >
+       { rating + ' stars: ' + title }
+      </option>
+    )
+  }
+
+  renderReviewSelect(reviews) {
+
+    var i = 0
+    const options = []
+
+    if (reviews.length) {
+      //
+      reviews.forEach( (review) => {
+        options.push(
+          this.renderReviewOption(
+            review.review_title, review.review_rating.toString(), i.toString()
+          )
+        )
+        i++
+      })
+      //
+    } else {
+      options.push(
+        this.renderReviewOption(
+          'a review','user', '5', '0'
+        )
+      )
+    }
+
+    return(
+      <div className='flex-row flex-center'>
+        <select
+         id='review-select'
+         name='review'
+         onChange={ (event) => {
+           this.setState( {
+             selected_review : this.reviews[ Number(event.target.value) ]
+           })
+         }}
+        >
+         { options }
+        </select>
+      </div>
+    )
+  }
+
   render() {
 
     this.preRenderConfig()
@@ -92,12 +181,13 @@ class ReviewSnippet extends React.Component {
       { this.renderProductDescription() }
 
       <Review
-        review = { this.props.reviews[0] }
+        review = { this.state.selected_review }
         stars_src = { this.stars_src }
         stars_alt = { this.stars_alt }
       />
 
     </div>
+    { this.renderReviewSelect(this.reviews) }
   </div>)
   }
 }

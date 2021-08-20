@@ -17,12 +17,69 @@ class BractForm extends React.Component {
       {name:'product_description',label:'Product Description',type:'textarea'}
     ]
 
+    this.catalog_data_path = './data/products/'
+    this.image_file_path = 'assets/product-images/'
+
+    this.catalog_items = require( this.catalog_data_path + 'schema.json' )
+
+    this.default_image_filename = (this.catalog_items.length) ?
+      this.image_file_path + this.catalog_items[0].image + '.jpg' :
+      this.image_file_path + 'placeholder.png'
+
+      console.log(this.catalog_items[0])
+
     this.state = {
       valid_form : false,
       valid_fields : Array(this.fields.length).fill(null),
       field_vals : Array(this.fields.length).fill(null),
-      field_errs : Array(this.fields.length).fill(null)
+      field_errs : Array(this.fields.length).fill(null),
+      selected_image : this.default_image_filename
     }
+
+    let field_vals = this.state.field_vals.slice()
+    let valid_fields = this.state.valid_fields.slice()
+    field_vals[1] = this.default_image_filename
+    valid_fields[1] = true
+    this.state.field_vals = field_vals
+    this.state.valid_fields = valid_fields
+
+    this.props.auditForm(
+      this.state.field_vals,
+      this.fields
+    )
+
+  }
+
+  renderImageOption(filename,index) {
+    return(
+      <option
+      className='image-option'
+      value={ this.catalog_data_path + filename + '.jpg'}
+      key={index}
+      >
+      { index + ': ' + filename}
+      </option>
+    )
+  }
+
+  renderImageSelect(catalog_items,name,label,int,err) {
+    let i = 0
+    const options = []
+     catalog_items.forEach( (item) => {
+      options.push( this.renderImageOption( item.image, int ))
+    })
+    return(
+      <select
+      id='image-select'
+      name={name}
+      label = {label}
+      type = {''}
+      index = {int}
+      err = {err}
+      key = {name}
+      >
+      </select>
+    )
   }
 
   renderField(name, label, type, int, err) {
@@ -88,7 +145,6 @@ class BractForm extends React.Component {
       )
     )
     //
-
   }
 
   handleSubmit() {
@@ -140,9 +196,9 @@ class BractForm extends React.Component {
       <form id='bract-form' className="flex-row flex-center">
         <div className="form-interior">
 
-    { field_els }
+        { field_els }
 
-    { this.renderSubmit() }
+        { this.renderSubmit() }
 
         </div>
       </form>

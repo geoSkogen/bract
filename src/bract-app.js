@@ -11,25 +11,13 @@ class BractApp extends React.Component {
   constructor(props) {
     super(props)
 
-    this.sample_review = {
-      review_title : 'This thing drilled like hell',
-      review_author : 'Cornfoot John',
-      review_date_mdy : '12/12/2012',
-      review_date_readable : 'December 12, 2021',
-      review_rating: '5',
-      review_body : 'I licked it.'
-    }
-
     this.snippet_id = 'product-review-snippet-wrapper'
     this.placeholder_id = 'clipboard-placeholder'
 
     this.state = {
       logged_in : false,
 
-      fields_arr : {},
-      reviews : [
-          this.sample_review
-        ]
+      fields_arr : {}
     }
 
   }
@@ -100,7 +88,6 @@ class BractApp extends React.Component {
     return(
       <ReviewSnippet
        schema = { obj }
-       reviews = { arr }
        />
     )
   }
