@@ -29,13 +29,13 @@ class BractField extends React.Component {
        placeholder={this.props.label}
        type={this.props.type}
        id={'input-for-' + this.props.name}
-       className={'bract-field'}
+       className='bract-field'
        value = { this.state.value }
        onChange={
-         this.handleInputChange
+         (event)=>{this.handleInputChange(event)}
        }
        onBlur={
-         this.handleInputChange
+         (event)=>{this.handleInputChange(event)}
        }
       />
     )
@@ -49,26 +49,15 @@ class BractField extends React.Component {
        id={'input-for-' + this.props.name}
        cols='24'
        rows='6'
-       className={'bract-field bract-textarea'}
-       onChange={ (event) => {
-
-         this.props.validField(
-           this.props.name,
-           event.target.value,
-           this.props.index
-         )
-       }}
-
-       onBlur={ (event) => {
-
-         this.props.validField(
-           this.props.name,
-           event.target.value,
-           this.props.index
-         )
-       }}
-      >
-      </textarea>
+       className='bract-field bract-textarea'
+       value={ this.state.value }
+       onChange={
+         this.handleInputChange
+       }
+       onBlur={
+         this.handleInputChange
+       }
+      />
     )
   }
 

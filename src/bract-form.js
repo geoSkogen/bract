@@ -1,6 +1,7 @@
 import React from 'react'
 
 import BractField from './bract-field.js'
+import BractImageSelect from './bract-image-select.js'
 import Submit from './submit.js'
 
 class BractForm extends React.Component {
@@ -18,15 +19,11 @@ class BractForm extends React.Component {
     ]
 
     this.catalog_data_path = './data/products/'
-    this.image_file_path = 'assets/product-images/'
+    this.image_file_path = 'assets/'
 
     this.catalog_items = require( this.catalog_data_path + 'schema.json' )
 
-    this.default_image_filename = (this.catalog_items.length) ?
-      this.image_file_path + this.catalog_items[0].image + '.jpg' :
-      this.image_file_path + 'placeholder.png'
-
-      console.log(this.catalog_items[0])
+    this.default_image_filename = this.image_file_path + 'placeholder.jpg'
 
     this.state = {
       valid_form : false,
@@ -47,7 +44,11 @@ class BractForm extends React.Component {
       this.state.field_vals,
       this.fields
     )
+  }
 
+  setFeaturedImage(filepath) {
+
+    this.setState({ selected_image: filepath })
   }
 
   renderImageOption(filename,index) {
@@ -63,22 +64,19 @@ class BractForm extends React.Component {
   }
 
   renderImageSelect(catalog_items,name,label,int,err) {
-    let i = 0
-    const options = []
-     catalog_items.forEach( (item) => {
-      options.push( this.renderImageOption( item.image, int ))
-    })
+
     return(
-      <select
-      id='image-select'
+    <BractImageSelect
       name={name}
       label = {label}
-      type = {''}
       index = {int}
       err = {err}
       key = {name}
-      >
-      </select>
+      catalog_items = {catalog_items}
+      value= {this.state.selected_image}
+      validField = { (name,val,int) => { this.validField(name,val,int) }}
+      setFeaturedImage = { (filepath) => { this.setFeaturedImage(filepath) }}
+      />
     )
   }
 
@@ -181,14 +179,26 @@ class BractForm extends React.Component {
     const field_els = []
 
     this.fields.forEach( (field) => {
+      if (i===1) {
+        //
+        field_els.push( this.renderImageSelect(
+          this.catalog_items,
+          field.name,
+          field.label,
+          i,
+          this.state.field_errs[i]
+        ))
+      } else {
+        //
+        field_els.push(  this.renderField(
+          field.name,
+          field.label,
+          field.type,
+          i,
+          this.state.field_errs[i]
+        ) )
+      }
 
-      field_els.push(  this.renderField(
-        field.name,
-        field.label,
-        field.type,
-        i,
-        this.state.field_errs[i]
-      ) )
       i++
     })
 
