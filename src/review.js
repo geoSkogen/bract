@@ -8,12 +8,11 @@ class Review extends React.Component {
 
   renderStars() {
     return(
-      <center>
+      <div>
         <img className='stars' id='product-snippet-stars'
           alt={ this.props.stars_alt } src={ this.props.stars_src }
-          width='200' style={ {marginBottom:'20px', width:'200px'} }
         />
-      </center>
+      </div>
     )
   }
 

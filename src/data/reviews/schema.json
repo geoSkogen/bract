@@ -5,7 +5,43 @@
     "review_date_mdy" : "12/12/2012",
     "review_date_readable" : "December 12, 2021",
     "review_rating": "5",
-    "review_body" : "I would eat this stuff if it was food. I tried to spread it on a bagel but it broke.",
+    "review_body" : "I would eat this stuff if it was food. I tried to spread it on a bagel.",
+    "product_id" : "0"
+  },
+  {
+    "review_title" : "Good Stuff, alright.",
+    "review_author" : "Blueberry Bill",
+    "review_date_mdy" : "11/12/2009",
+    "review_date_readable" : "November 12, 2009",
+    "review_rating": "4",
+    "review_body" : "We had a huge chunk of this stuff and it didnt give us any diseases.",
+    "product_id" : "0"
+  },
+  {
+    "review_title" : "Life sustaining sustanence and such.",
+    "review_author" : "Lotus Otis",
+    "review_date_mdy" : "09/13/2020",
+    "review_date_readable" : "September 13, 2020",
+    "review_rating": "3",
+    "review_body" : "I cant live without it, but its not great.  Its regular, REAL regular.",
+    "product_id" : "0"
+  },
+  {
+    "review_title" : "Out of this world!",
+    "review_author" : "Chimney Tim",
+    "review_date_mdy" : "08/22/2011",
+    "review_date_readable" : "August 22, 2011",
+    "review_rating": "5",
+    "review_body" : "Its great for the home, the office, on fruits.  Its the same exotic essense as what the guys from Oasis get off on.",
+    "product_id" : "0"
+  },
+  {
+    "review_title" : "Make me some more.",
+    "review_author" : "Gerald the Barrel",
+    "review_date_mdy" : "04/28/2018",
+    "review_date_readable" : "April 28, 2018",
+    "review_rating": "4",
+    "review_body" : "I drove all the way from Gretchly-Up-On-Thump to get me some and Ill be back.",
     "product_id" : "0"
   }
 ]
