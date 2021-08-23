@@ -8,6 +8,12 @@ class BractForm extends React.Component {
   constructor(props) {
     super(props)
 
+    this.catalog_data_path = './data/products/'
+
+    this.catalog_items = require( this.catalog_data_path + 'schema.json' )
+
+    this.validField = this.validField.bind(this)
+
     this.fields = [
       {name:'biz_name',label:'Business Name',type:'text'},
       {name:'feat_img_src',label:'Logo URL',type:'text'},
@@ -18,25 +24,18 @@ class BractForm extends React.Component {
       {name:'product_description',label:'Product Description',type:'textarea'}
     ]
 
-    this.catalog_data_path = './data/products/'
-    this.image_file_path = 'assets/'
-
-    this.catalog_items = require( this.catalog_data_path + 'schema.json' )
-
-    this.default_image_filename = this.image_file_path + 'placeholder.jpg'
-
     this.state = {
-      valid_form : false,
-      valid_fields : Array(this.fields.length).fill(null),
-      field_vals : Array(this.fields.length).fill(null),
+      field_vals : Array(this.fields.length).fill(undefined),
       field_errs : Array(this.fields.length).fill(null),
-      selected_image : this.default_image_filename
+      valid_fields : Array(this.fields.length).fill(null),
+      valid_form : false
     }
 
-    let field_vals = this.state.field_vals.slice()
-    let valid_fields = this.state.valid_fields.slice()
-    field_vals[1] = this.default_image_filename
+    let field_vals = this.state.field_vals
+    let valid_fields = this.state.valid_fields
+    field_vals[1]  = 'assets/product-images/placeholder.jpg'
     valid_fields[1] = true
+
     this.state.field_vals = field_vals
     this.state.valid_fields = valid_fields
 
@@ -44,61 +43,6 @@ class BractForm extends React.Component {
       this.state.field_vals,
       this.fields
     )
-  }
-
-  setFeaturedImage(filepath) {
-
-    this.setState({ selected_image: filepath })
-  }
-
-  renderImageOption(filename,index) {
-    return(
-      <option
-      className='image-option'
-      value={ this.catalog_data_path + filename + '.jpg'}
-      key={index}
-      >
-      { index + ': ' + filename}
-      </option>
-    )
-  }
-
-  renderImageSelect(catalog_items,name,label,int,err) {
-
-    return(
-    <BractImageSelect
-      name={name}
-      label = {label}
-      index = {int}
-      err = {err}
-      key = {name}
-      catalog_items = {catalog_items}
-      value= {this.state.selected_image}
-      validField = { (name,val,int) => { this.validField(name,val,int) }}
-      setFeaturedImage = { (filepath) => { this.setFeaturedImage(filepath) }}
-      />
-    )
-  }
-
-  renderField(name, label, type, int, err) {
-
-    return (
-      <BractField
-       name = {name}
-       label = {label}
-       type = {type}
-       index = {int}
-       err = {err}
-       key = {name }
-       validField = { (name,val,int) => { this.validField(name,val,int) }}
-      />
-    )
-  }
-
-  renderSubmit() {
-    return(<Submit
-      validForm = { () => { this.validForm() } }
-    />)
   }
 
   validField(field_name, field_value, field_index) {
@@ -116,13 +60,14 @@ class BractForm extends React.Component {
           '' : 'name contains invalid characters'
         break
       case 'biz_name' :
-      case 'feat_img_src' :
       case 'product_name' :
       case 'product_brand' :
       case 'product_agg_rating' :
       case 'product_total_ratings' :
       case 'product_description' :
-        err = code_patt.test(field_value) ? 'input contains prohibited characters' : ''
+       err = code_patt.test(field_value) ? 'input contains prohibited characters' : ''
+        break
+      case 'feat_img_src' :
         break
       default :
         err = 'unexpected error occurred - you are fired'
@@ -136,25 +81,13 @@ class BractForm extends React.Component {
       valid_fields : valid_fields_arr,
       field_errs : field_errs_arr,
       field_vals : field_vals_arr
-    },
-      this.props.auditForm(
-        this.state.field_vals,
-        this.fields
-      )
+    })
+
+    this.props.auditForm(
+      field_vals_arr,
+      this.fields
     )
     //
-  }
-
-  handleSubmit() {
-    //
-    if (this.state.valid_form) {
-      console.log('valid form')
-      // AJAX POST JSON string of parent object's 'fields_arr' state property
-      //this.props.postForm()
-      this.props.showForm()
-    } else {
-      console.log('invalid form')
-    }
   }
 
   validForm() {
@@ -163,15 +96,77 @@ class BractForm extends React.Component {
     for (let i = 0; i < this.fields.length; i++) {
       //
       valid_tally += this.state.valid_fields[i] ? 1 : 0
+      console.log(this.state.valid_fields[i])
     }
 
     if (valid_tally===this.fields.length) {
-
+      console.log('valid form')
       this.setState(
-        { valid_form : true },
-        this.handleSubmit        // callback function
+        { valid_form: true },
+        this.handleSubmit() // callback function
       )
+    } else {
+      console.log('invalid form')
     }
+  }
+
+  handleSubmit() {
+    //
+
+      // AJAX POST JSON string of parent object's 'fields_arr' state property
+      //this.props.postForm()
+      this.props.showForm()
+
+  }
+
+  renderImageOption(filename,index) {
+    return(
+      <option
+        className='image-option'
+        value={ this.catalog_data_path + filename + '.jpg'}
+        key={index}
+      >
+      { index + ': ' + filename}
+      </option>
+    )
+  }
+
+  renderImageSelect(catalog_items,name,label,int,err,val) {
+
+    return(
+    <BractImageSelect
+      name={name}
+      label = {label}
+      index = {int}
+      err = {err}
+      key = {name}
+      value = {val}
+      catalog_items = {catalog_items}
+      validField = { (name,val,int) => { this.validField(name,val,int) }}
+      />
+    )
+  }
+
+  renderField(name, label, type, int, err, val) {
+
+    return (
+      <BractField
+       name = {name}
+       label = {label}
+       type = {type}
+       index = {int}
+       err = {err}
+       key = {name }
+       value = {val}
+       validField = { (name,val,int) => { this.validField(name,val,int) }}
+      />
+    )
+  }
+
+  renderSubmit() {
+    return(<Submit
+      validForm = { () => { this.validForm() } }
+    />)
   }
 
   render() {
@@ -186,7 +181,8 @@ class BractForm extends React.Component {
           field.name,
           field.label,
           i,
-          this.state.field_errs[i]
+          this.state.field_errs[i],
+          this.state.field_vals[i]
         ))
       } else {
         //
@@ -195,10 +191,10 @@ class BractForm extends React.Component {
           field.label,
           field.type,
           i,
-          this.state.field_errs[i]
-        ) )
+          this.state.field_errs[i],
+          this.state.field_vals[i]
+        ))
       }
-
       i++
     })
 

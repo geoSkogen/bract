@@ -41,9 +41,6 @@ class BractDisplay extends React.Component {
         <div className="flex-row flex-center">
           {this.hidden_input}
         </div>
-
-
-
       </article>
     )
   }

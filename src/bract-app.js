@@ -10,34 +10,32 @@ class BractApp extends React.Component {
 
   constructor(props) {
     super(props)
+    this.auditForm = this.auditForm.bind(this)
 
     this.snippet_id = 'product-review-snippet-wrapper'
     this.placeholder_id = 'clipboard-placeholder'
 
     this.state = {
       logged_in : false,
-
       fields_arr : {}
     }
-
   }
+
 
   auditForm(field_entries,field_meta) {
     let keyval_pairs = {}
     for (let i = 0; i < field_entries.length; i++) {
       keyval_pairs[field_meta[i].name] = field_entries[i]
     }
-    keyval_pairs.reviews = [
-      this.sample_review
-    ]
     this.setState({ fields_arr : keyval_pairs })
   }
+
 
   postForm() {
 
   }
 
-  showForm() {
+  displayFormData() {
     console.log(JSON.stringify(this.state.fields_arr))
     const snippet = document.querySelector('#' + this.snippet_id)
     const field = document.querySelector('#' + this.placeholder_id)
@@ -59,9 +57,8 @@ class BractApp extends React.Component {
   renderForm() {
     return(
       <BractForm
-        auditForm = { (vals_arr,keys_arr) => this.auditForm(vals_arr,keys_arr) }
-        showForm = { () => this.showForm() }
-        postForm = { () => this.postForm() }
+        auditForm = { (vals_arr, field_metas) => this.auditForm(vals_arr, field_metas) }
+        showForm = { () => this.displayFormData() }
       />
     )
   }
@@ -84,7 +81,7 @@ class BractApp extends React.Component {
     )
   }
 
-  renderReviewSnippet(obj,arr) {
+  renderReviewSnippet(obj) {
     return(
       <ReviewSnippet
        schema = { obj }
@@ -104,7 +101,7 @@ class BractApp extends React.Component {
 
           {this.renderForm()}
 
-          {this.renderReviewSnippet( this.state.fields_arr, this.state.reviews)}
+          {this.renderReviewSnippet( this.state.fields_arr )}
 
           {this.renderDisplay( this.state.fields_arr )}
 

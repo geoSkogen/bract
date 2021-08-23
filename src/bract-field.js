@@ -3,17 +3,11 @@ import React from 'react'
 class BractField extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      valid : false,
-      value : '',
-      err : this.props.err
-    }
-
-    this.handleInputChange = this.handleInputChange.bind(this)
+    //this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   handleInputChange(event) {
-    this.setState({ value: event.target.value })
+    //console.log(event.target.value)
 
     this.props.validField(
       this.props.name,
@@ -30,12 +24,12 @@ class BractField extends React.Component {
        type={this.props.type}
        id={'input-for-' + this.props.name}
        className='bract-field'
-       value = { this.state.value }
+       value = {this.props.value}
        onChange={
-         (event)=>{this.handleInputChange(event)}
+         (event) => this.handleInputChange(event)
        }
        onBlur={
-         (event)=>{this.handleInputChange(event)}
+         (event) => this.handleInputChange(event)
        }
       />
     )
@@ -50,12 +44,12 @@ class BractField extends React.Component {
        cols='24'
        rows='6'
        className='bract-field bract-textarea'
-       value={ this.state.value }
+       value={this.props.value}
        onChange={
-         this.handleInputChange
+         (event) => this.handleInputChange(event)
        }
        onBlur={
-         this.handleInputChange
+         (event) => this.handleInputChange(event)
        }
       />
     )

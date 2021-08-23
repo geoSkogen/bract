@@ -6,20 +6,12 @@ class BractImageSelect extends React.Component {
     super(props)
 
     this.image_file_path = 'assets/product-images/'
+    //this.handleInputChange = this.handleInputChange.bind(this)
 
-    this.state = {
-      valid : false,
-      value : this.props.value,
-      err : this.props.err
-    }
-
-    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   handleInputChange(event) {
 
-    this.setState({ value: event.target.value })
-    this.props.setFeaturedImage( event.target.value )
     this.props.validField(
       this.props.name,
       event.target.value,
@@ -42,7 +34,9 @@ class BractImageSelect extends React.Component {
   render() {
     let i = 0
     const options = []
-     this.props.catalog_items.forEach( (item) => {
+    options.push( this.renderImageOption('placeholder', '0') )
+
+    this.props.catalog_items.forEach( (item) => {
       options.push( this.renderImageOption( item.image, (i+1).toString() ))
       i++
     })
@@ -58,7 +52,7 @@ class BractImageSelect extends React.Component {
         index = {this.props.index}
         err = {this.props.err}
         key = {this.props.name}
-        value = {this.state.value}
+        value={this.props.value}
         onChange = { (event) => {
           this.handleInputChange(event)
         }}

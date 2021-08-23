@@ -14,34 +14,7 @@ class ReviewSnippet extends React.Component {
     this.state = {
       selected_review : this.default_review
     }
-    //console.log(this.reviews_raw)
-    /*
-    var xhttp = new XMLHttpRequest()
 
-    xhttp.onreadystatechange = function () {
-
-      if (this.readyState === 4 && this.status === 200 ) {
-      console.log('your file was found')
-      if (this.responseText) {
-
-        var reviews = JSON.parse(this.responseText)
-
-        if (reviews.length) {
-
-        } else {
-          console.log('no data were found')
-        }
-      } else {
-        console.log('no response from web resource')
-      }
-    } else {
-      console.log('an http error occurred - check your target URL')
-    }
-    return null
-  }
-  xhttp.open("GET",'data/reviews/schema.json',true);
-  xhttp.send();
-  */
   }
 
   preRenderConfig() {
@@ -87,7 +60,7 @@ class ReviewSnippet extends React.Component {
     )
   }
 
-  renderRating() {
+  renderRating(agg_rating, total_ratings) {
     return(
       <div
        itemProp='aggregateRating'
@@ -95,9 +68,9 @@ class ReviewSnippet extends React.Component {
        itemType='https://schema.org/AggregateRating'
        className='product-snippet-agg-rating-wrapper'
        >
-        <span itemProp='ratingValue'>{ this.props.schema.product_agg_rating }</span>
+        <span itemProp='ratingValue'>{ agg_rating }</span>
         &nbsp;out of <span itemProp='bestRating'>5</span>
-        &nbsp;based on <span itemProp='ratingCount'>{ this.props.schema.product_total_ratings }</span>
+        &nbsp;based on <span itemProp='ratingCount'>{ total_ratings }</span>
         &nbsp;verified reviews
       </div>
     )
@@ -167,7 +140,8 @@ class ReviewSnippet extends React.Component {
   render() {
 
     this.preRenderConfig()
-
+    const agg_rating = this.props.schema.product_agg_rating
+    const total_ratings = this.props.schema.product_total_ratings
     return(
   <div id='product-review-snippet-wrapper'>
     <div itemScope itemType='https://schema.org/Product' id="product-review-snippet">
@@ -176,7 +150,7 @@ class ReviewSnippet extends React.Component {
       { this.renderProductName() }
       { this.renderProductBrand() }
 
-      { this.renderRating() }
+      { this.renderRating(agg_rating, total_ratings) }
 
       { this.renderProductDescription() }
 
